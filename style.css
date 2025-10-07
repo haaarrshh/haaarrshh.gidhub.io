@@ -29,4 +29,11 @@ h1 {
 .state-card h2 {
     margin-top: 0;
     color: #0056b3;
+
+}
+.loading {
+    font-size: 1.2em;
+    color: #555;
+    width: 100%;
+    text-align: center;
 }
