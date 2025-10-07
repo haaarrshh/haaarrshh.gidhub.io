@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dynamic India State Dashboard</title>
+    <title>Interactive Map of India</title>
+    
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>India: State & UT Overview 🇮🇳</h1>
-    <div id="states-container">
-        <p class="loading">Loading live data, please wait...</p>
+    <div class="header">
+        <h1>Interactive India Demographics Map 🗺️</h1>
+        <div class="controls">
+            <span>Show Data For:</span>
+            <button id="costBtn" class="active">Cost of Living</button>
+            <button id="safetyBtn">Safety</button>
+            <button id="pollutionBtn">Pollution</button>
+        </div>
     </div>
 
+    <div id="map"></div>
+
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html>
