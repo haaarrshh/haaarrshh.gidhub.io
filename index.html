@@ -4,25 +4,67 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>India Demographics Dashboard</title>
-    
+
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
+    <div class="map-disclaimer">
+        Boundary representation is not necessarily authoritative.
+    </div>
+
     <div class="dashboard-container">
+        <header class="dashboard-header">
+            <h1>India Demographics Dashboard 🇮🇳</h1>
+            <p>State-Level Data Overview</p>
+        </header>
+
+        <div class="controls">
+            <div class="control-item">
+                <label for="year-select">Select Year:</label>
+                <select id="year-select"></select>
+            </div>
+            <div class="control-item">
+                <label for="category-select">Select Category:</label>
+                <select id="category-select">
+                    <option value="aqi">Air Quality (AQI)</option>
+                    <option value="safety_index">Safety Index</option>
+                    <option value="cost_of_living_index">Cost of Living Index</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="kpi-cards">
+            <div class="card">
+                <h2 id="kpi-title">National Average</h2>
+                <p id="kpi-value">--</p>
+            </div>
+            <div class="card">
+                <h2>Number of States/UTs</h2>
+                <p id="state-count">--</p>
+            </div>
+        </div>
+
         <div id="map"></div>
 
-        <div id="sidebar">
-            <div class="sidebar-content">
-                <h2>State Details</h2>
-                <p class="initial-text">Click on a state to view its detailed information.</p>
-                <div id="details-content">
-                    </div>
-            </div>
+        <div class="table-container">
+            <table id="data-table">
+                <thead>
+                    <tr>
+                        <th>State / UT</th>
+                        <th id="table-header-value">Value</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    </tbody>
+            </table>
         </div>
     </div>
 
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    
     <script src="script.js"></script>
 </body>
 </html>
