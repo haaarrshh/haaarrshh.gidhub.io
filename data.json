@@ -1,58 +1,38 @@
 [
-    {
-      "name": "Delhi",
-      "type": "Union Territory",
-      "cityForAQI": "delhi",
-      "humanRights": "Complex situation with ongoing civic activism.",
-      "safety": "Moderate; requires caution, especially at night.",
-      "costOfLiving": "Very High"
-    },
-    {
-      "name": "Maharashtra",
-      "type": "State",
-      "cityForAQI": "mumbai",
-      "humanRights": "Active civil society, faces challenges in rural areas.",
-      "safety": "Relatively safe in urban centers like Mumbai.",
-      "costOfLiving": "High (especially in Mumbai)"
-    },
-    {
-      "name": "Kerala",
-      "type": "State",
-      "cityForAQI": "kochi",
-      "humanRights": "High literacy and strong social indicators.",
-      "safety": "High; considered one of the safer states for tourists.",
-      "costOfLiving": "Moderate"
-    },
-    {
-      "name": "Goa",
-      "type": "State",
-      "cityForAQI": "goa",
-      "humanRights": "Generally progressive with a focus on tourism.",
-      "safety": "High, but caution advised in tourist areas.",
-      "costOfLiving": "High (driven by tourism)"
-    },
-    {
-      "name": "Rajasthan",
-      "type": "State",
-      "cityForAQI": "jaipur",
-      "humanRights": "Faces challenges related to caste and gender issues.",
-      "safety": "Generally safe for tourists, standard precautions needed.",
-      "costOfLiving": "Low to Moderate"
-    },
-    {
-      "name": "West Bengal",
-      "type": "State",
-      "cityForAQI": "kolkata",
-      "humanRights": "Politically active with a history of social movements.",
-      "safety": "Moderate; Kolkata is relatively safe.",
-      "costOfLiving": "Low to Moderate"
-    },
-    {
-      "name": "Sikkim",
-      "type": "State",
-      "cityForAQI": "sikkim",
-      "humanRights": "Strong environmental policies and social stability.",
-      "safety": "Very High; one of India's safest states.",
-      "costOfLiving": "Moderate"
-    }
-  ]
+  {"state":"Andaman and Nicobar Islands","data":[{"year":2025,"aqi":25,"safety_index":78,"cost_of_living_index":32}]},
+  {"state":"Andhra Pradesh","data":[{"year":2025,"aqi":80,"safety_index":62,"cost_of_living_index":26}]},
+  {"state":"Arunachal Pradesh","data":[{"year":2025,"aqi":30,"safety_index":75,"cost_of_living_index":29}]},
+  {"state":"Assam","data":[{"year":2025,"aqi":75,"safety_index":65,"cost_of_living_index":25}]},
+  {"state":"Bihar","data":[{"year":2025,"aqi":160,"safety_index":48,"cost_of_living_index":22}]},
+  {"state":"Chandigarh","data":[{"year":2025,"aqi":110,"safety_index":68,"cost_of_living_index":38}]},
+  {"state":"Chhattisgarh","data":[{"year":2025,"aqi":90,"safety_index":55,"cost_of_living_index":23}]},
+  {"state":"Dadra and Nagar Haveli and Daman and Diu","data":[{"year":2025,"aqi":70,"safety_index":70,"cost_of_living_index":31}]},
+  {"state":"Delhi","data":[{"year":2025,"aqi":185,"safety_index":43,"cost_of_living_index":40}]},
+  {"state":"Goa","data":[{"year":2025,"aqi":48,"safety_index":82,"cost_of_living_index":36}]},
+  {"state":"Gujarat","data":[{"year":2025,"aqi":98,"safety_index":72,"cost_of_living_index":29}]},
+  {"state":"Haryana","data":[{"year":2025,"aqi":155,"safety_index":52,"cost_of_living_index":30}]},
+  {"state":"Himachal Pradesh","data":[{"year":2025,"aqi":55,"safety_index":80,"cost_of_living_index":33}]},
+  {"state":"Jammu and Kashmir","data":[{"year":2025,"aqi":85,"safety_index":45,"cost_of_living_index":34}]},
+  {"state":"Jharkhand","data":[{"year":2025,"aqi":105,"safety_index":53,"cost_of_living_index":24}]},
+  {"state":"Karnataka","data":[{"year":2025,"aqi":88,"safety_index":60,"cost_of_living_index":35}]},
+  {"state":"Kerala","data":[{"year":2025,"aqi":52,"safety_index":75,"cost_of_living_index":30}]},
+  {"state":"Ladakh","data":[{"year":2025,"aqi":40,"safety_index":79,"cost_of_living_index":37}]},
+  {"state":"Lakshadweep","data":[{"year":2025,"aqi":20,"safety_index":85,"cost_of_living_index":39}]},
+  {"state":"Madhya Pradesh","data":[{"year":2025,"aqi":115,"safety_index":58,"cost_of_living_index":25}]},
+  {"state":"Maharashtra","data":[{"year":2025,"aqi":95,"safety_index":60,"cost_of_living_index":35}]},
+  {"state":"Manipur","data":[{"year":2025,"aqi":65,"safety_index":59,"cost_of_living_index":28}]},
+  {"state":"Meghalaya","data":[{"year":2025,"aqi":50,"safety_index":76,"cost_of_living_index":27}]},
+  {"state":"Mizoram","data":[{"year":2025,"aqi":42,"safety_index":77,"cost_of_living_index":28}]},
+  {"state":"Nagaland","data":[{"year":2025,"aqi":68,"safety_index":74,"cost_of_living_index":30}]},
+  {"state":"Odisha","data":[{"year":2025,"aqi":85,"safety_index":64,"cost_of_living_index":24}]},
+  {"state":"Puducherry","data":[{"year":2025,"aqi":60,"safety_index":71,"cost_of_living_index":31}]},
+  {"state":"Punjab","data":[{"year":2025,"aqi":120,"safety_index":63,"cost_of_living_index":29}]},
+  {"state":"Rajasthan","data":[{"year":2025,"aqi":130,"safety_index":66,"cost_of_living_index":27}]},
+  {"state":"Sikkim","data":[{"year":2025,"aqi":45,"safety_index":85,"cost_of_living_index":28}]},
+  {"state":"Tamil Nadu","data":[{"year":2025,"aqi":78,"safety_index":69,"cost_of_living_index":28}]},
+  {"state":"Telangana","data":[{"year":2025,"aqi":92,"safety_index":57,"cost_of_living_index":30}]},
+  {"state":"Tripura","data":[{"year":2025,"aqi":72,"safety_index":68,"cost_of_living_index":26}]},
+  {"state":"Uttar Pradesh","data":[{"year":2025,"aqi":175,"safety_index":50,"cost_of_living_index":25}]},
+  {"state":"Uttarakhand","data":[{"year":2025,"aqi":95,"safety_index":73,"cost_of_living_index":32}]},
+  {"state":"West Bengal","data":[{"year":2025,"aqi":140,"safety_index":56,"cost_of_living_index":26}]}
+]
