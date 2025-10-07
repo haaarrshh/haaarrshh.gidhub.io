@@ -26,7 +26,7 @@ L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
 
 // Fetches both the map shape data and your statistical data at the same time.
 Promise.all([
-    fetch('india-states.geojson'), // Or the path if it's in a subfolder
+    fetch('india-main/states/json/india-states.json'), // Path inside the unzipped folder
     fetch('data.json')
 ]).then(responses => Promise.all(responses.map(res => res.json())))
   .then(([geojsonData, demographicData]) => {
