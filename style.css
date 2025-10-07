@@ -1,62 +1,105 @@
-/* Global and Layout Styles */
-html, body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
+/* --- Global Styles --- */
+body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    overflow: hidden; /* Prevents the whole page from scrolling */
-}
-
-.dashboard-container {
-    display: flex;
-    height: 100vh; /* Make the container fill the entire viewport height */
-}
-
-/* Map Container Styles */
-#map {
-    flex: 3; /* The map will take up 3 parts of the available space (e.g., 75%) */
-    height: 100%;
-    background-color: #a2d9ff; /* Light blue color to simulate the sea around India */
-}
-
-/* Sidebar Styles */
-#sidebar {
-    flex: 1; /* The sidebar will take up 1 part of the available space (e.g., 25%) */
-    height: 100%;
-    background-color: #f8f9fa; /* A light grey background for a clean look */
-    box-shadow: -3px 0px 10px rgba(0, 0, 0, 0.1); /* A subtle shadow to lift it off the map */
-    padding: 25px;
-    overflow-y: auto; /* Adds a scrollbar ONLY if the sidebar content is too long */
-    box-sizing: border-box; /* Ensures padding is included in the element's total width and height */
-}
-
-.sidebar-content h2 {
-    margin-top: 0;
+    margin: 0;
+    background-color: #f4f7fa; /* Light grey background for the page */
     color: #333;
-    border-bottom: 2px solid #dee2e6;
-    padding-bottom: 10px;
-    font-size: 1.5em;
 }
 
-.sidebar-content .initial-text {
-    color: #6c757d;
-    font-style: italic;
-    font-size: 1.1em;
+/* --- Main Dashboard Layout --- */
+.dashboard-container {
+    display: grid;
+    /* Defines a 2-column layout */
+    grid-template-columns: 1fr 1fr; 
+    /* Defines row heights: auto for content, 1fr for the table to fill space */
+    grid-template-rows: auto auto auto auto 1fr; 
+    gap: 20px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: auto; /* Centers the dashboard on the page */
 }
 
-#details-content h3 {
-    color: #0056b3; /* A distinct, professional blue for the state name */
-    margin-bottom: 15px;
-    font-size: 1.7em;
+/* --- Grid Item Placement --- */
+/* Each item is assigned a position on the grid */
+.dashboard-header { grid-column: 1 / -1; } /* Span across both columns */
+.controls { grid-column: 1 / -1; display: flex; gap: 20px; }
+.kpi-cards { grid-column: 1 / -1; display: flex; gap: 20px; }
+#map { grid-column: 1 / -1; height: 500px; border-radius: 8px; }
+.table-container { grid-column: 1 / -1; }
+
+/* --- Component Styles --- */
+.dashboard-header h1 { 
+    margin: 0; 
+}
+.dashboard-header p { 
+    margin: 5px 0 0 0; 
+    color: #666; 
 }
 
-#details-content p {
-    line-height: 1.7; /* Improves readability of the details */
-    color: #495057;
-    margin: 10px 0;
-    font-size: 1em;
+.control-item label { 
+    font-weight: bold; 
+    margin-right: 10px; 
+}
+.control-item select { 
+    padding: 8px; 
+    border-radius: 5px; 
+    border: 1px solid #ccc; 
+    background-color: white;
 }
 
-#details-content strong {
-    color: #343a40; /* Makes the data labels slightly darker and prominent */
+.card {
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex: 1; /* Allows cards to share space evenly */
+}
+.card h2 { 
+    margin: 0 0 10px 0; 
+    font-size: 1.2em; 
+    color: #555; 
+}
+.card p { 
+    margin: 0; 
+    font-size: 2em; 
+    font-weight: bold; 
+    color: #0056b3; 
+}
+
+#map { 
+    background-color: #e9ecef; /* Fallback color while map tiles load */
+}
+
+.table-container { 
+    background: white; 
+    border-radius: 8px; 
+    padding: 20px; 
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+    overflow-y: auto; /* Add scrollbar if table is too tall */
+}
+#data-table { 
+    width: 100%; 
+    border-collapse: collapse; 
+}
+#data-table th, #data-table td { 
+    padding: 12px; 
+    text-align: left; 
+    border-bottom: 1px solid #ddd; 
+}
+#data-table th { 
+    background-color: #f8f9fa; 
+    font-weight: bold;
+}
+
+/* --- Disclaimer Style --- */
+.map-disclaimer {
+    position: absolute;
+    bottom: 5px;
+    right: 10px;
+    z-index: 1000; /* Ensures it's on top of the map */
+    font-size: 10px;
+    color: #555;
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 2px 5px;
+    border-radius: 3px;
 }
