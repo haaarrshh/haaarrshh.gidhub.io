@@ -1,0 +1,58 @@
+[
+    {
+      "name": "Delhi",
+      "type": "Union Territory",
+      "cityForAQI": "delhi",
+      "humanRights": "Complex situation with ongoing civic activism.",
+      "safety": "Moderate; requires caution, especially at night.",
+      "costOfLiving": "Very High"
+    },
+    {
+      "name": "Maharashtra",
+      "type": "State",
+      "cityForAQI": "mumbai",
+      "humanRights": "Active civil society, faces challenges in rural areas.",
+      "safety": "Relatively safe in urban centers like Mumbai.",
+      "costOfLiving": "High (especially in Mumbai)"
+    },
+    {
+      "name": "Kerala",
+      "type": "State",
+      "cityForAQI": "kochi",
+      "humanRights": "High literacy and strong social indicators.",
+      "safety": "High; considered one of the safer states for tourists.",
+      "costOfLiving": "Moderate"
+    },
+    {
+      "name": "Goa",
+      "type": "State",
+      "cityForAQI": "goa",
+      "humanRights": "Generally progressive with a focus on tourism.",
+      "safety": "High, but caution advised in tourist areas.",
+      "costOfLiving": "High (driven by tourism)"
+    },
+    {
+      "name": "Rajasthan",
+      "type": "State",
+      "cityForAQI": "jaipur",
+      "humanRights": "Faces challenges related to caste and gender issues.",
+      "safety": "Generally safe for tourists, standard precautions needed.",
+      "costOfLiving": "Low to Moderate"
+    },
+    {
+      "name": "West Bengal",
+      "type": "State",
+      "cityForAQI": "kolkata",
+      "humanRights": "Politically active with a history of social movements.",
+      "safety": "Moderate; Kolkata is relatively safe.",
+      "costOfLiving": "Low to Moderate"
+    },
+    {
+      "name": "Sikkim",
+      "type": "State",
+      "cityForAQI": "sikkim",
+      "humanRights": "Strong environmental policies and social stability.",
+      "safety": "Very High; one of India's safest states.",
+      "costOfLiving": "Moderate"
+    }
+  ]
