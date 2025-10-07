@@ -1,79 +1,166 @@
-const AQI_API_KEY = "4bcf20e7bdeca3a1117d30b87bbeeccf84840960";
+// --- CONFIGURATION ---
+// Set the initial map center and zoom level
+const mapCenter = [22.5, 82.5];
+const mapZoom = 5;
 
-// Get the main container element from the HTML.
-const container = document.getElementById('states-container');
+// --- INITIALIZE MAP ---
+// Create the Leaflet map object
+const map = L.map('map').setView(mapCenter, mapZoom);
 
-// This is an 'async' function, which means it can use the 'await' keyword
-// to wait for asynchronous operations like API calls to finish.
-async function loadStateData() {
-    try {
-        // 1. Fetch the local base data from your data.json file.
-        const response = await fetch('data.json');
-        const statesBaseData = await response.json();
+// Add a base tile layer (the visual map background)
+L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+    attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+}).addTo(map);
 
-        // Clear the "Loading..." message.
-        container.innerHTML = "";
+// --- GLOBAL VARIABLES ---
+let geojsonLayer;
+let infoTooltip;
+let currentView = 'costOfLiving'; // This will be our default view
 
-        // 2. Loop through each state from your JSON file.
-        for (const state of statesBaseData) {
-            // Construct the API URL for the Air Quality Index.
-            const aqiUrl = `https://api.waqi.info/feed/${state.cityForAQI}/?token=${AQI_API_KEY}`;
-            
-            let pollutionData = 'Not available';
-            try {
-                // 3. Fetch the live pollution data for the current state's city.
-                const aqiResponse = await fetch(aqiUrl);
-                const aqiJson = await aqiResponse.json();
-
-                // Check if the API call was successful and data exists.
-                if (aqiJson.status === "ok") {
-                    const aqi = aqiJson.data.aqi;
-                    let quality = getAqiQuality(aqi);
-                    pollutionData = `AQI: ${aqi} (${quality})`;
-                } else {
-                    pollutionData = `Could not fetch for ${state.cityForAQI}.`;
-                }
-            } catch (error) {
-                console.error(`Error fetching AQI for ${state.name}:`, error);
-                pollutionData = 'Error loading data.';
-            }
-
-            // 4. Create and display the card with combined data.
-            createStateCard(state, pollutionData);
+// --- DATA FETCHING AND MAP CREATION ---
+// Use Promise.all to fetch both datasets at the same time
+Promise.all([
+    fetch('india-states.geojson'),
+    fetch('data.json') 
+]).then(responses => Promise.all(responses.map(res => res.json())))
+  .then(([geojsonData, demographicData]) => {
+    
+    // Merge the demographic data into the GeoJSON properties
+    geojsonData.features.forEach(feature => {
+        const stateName = feature.properties.st_nm;
+        const stateData = demographicData.find(d => d.name === stateName);
+        if (stateData) {
+            feature.properties.demographics = stateData;
         }
-    } catch (error) {
-        console.error("Failed to load base state data:", error);
-        container.innerHTML = "<p class='loading'>Error: Could not load initial state data. Please try again later.</p>";
+    });
+
+    // Create the GeoJSON layer
+    geojsonLayer = L.geoJson(geojsonData, {
+        style: styleLayer,
+        onEachFeature: onEachFeature
+    }).addTo(map);
+
+    // Create and add the info tooltip control
+    createInfoTooltip();
+
+}).catch(error => console.error('Error loading data:', error));
+
+
+// --- STYLING AND INTERACTIVITY FUNCTIONS ---
+
+// Function to determine the color of a state based on the current view
+function getColor(value) {
+    const scale = {
+        'Low': '#74c476',
+        'Low to Moderate': '#a1d99b',
+        'Moderate': '#fed976',
+        'High': '#feb24c',
+        'Very High': '#f03b20',
+        'Default': '#bd0026' // For safety, where values are different
+    };
+    
+    // Simplified mapping for safety
+    if(currentView === 'safety') {
+        if (value.includes('Very High') || value.includes('High')) return scale['Low'];
+        if (value.includes('Moderate')) return scale['Moderate'];
+        return scale['Very High']; // Low safety = high danger color
     }
+    
+    return scale[value] || '#cccccc'; // Return grey if no match
 }
 
-// A helper function to create the HTML card for each state.
-function createStateCard(stateInfo, pollutionInfo) {
-    const card = document.createElement('div');
-    card.className = 'state-card';
-
-    card.innerHTML = `
-        <h2>${stateInfo.name} <span class="state-type">(${stateInfo.type})</span></h2>
-        <p><strong>Live Pollution:</strong> ${pollutionInfo}</p>
-        <p><strong>Human Rights:</strong> ${stateInfo.humanRights}</p>
-        <p><strong>Safety:</strong> ${stateInfo.safety}</p>
-        <p><strong>Cost of Living:</strong> ${stateInfo.costOfLiving}</p>
-    `;
-
-    container.appendChild(card);
+// Function that defines the style for each state layer
+function styleLayer(feature) {
+    const demographics = feature.properties.demographics;
+    let value = demographics ? demographics[currentView] : null;
+    
+    return {
+        fillColor: getColor(value),
+        weight: 1,
+        opacity: 1,
+        color: 'white',
+        fillOpacity: 0.8
+    };
 }
 
-// A helper function to determine air quality from the AQI value.
-function getAqiQuality(aqi) {
-    if (aqi <= 50) return "Good";
-    if (aqi <= 100) return "Moderate";
-    if (aqi <= 150) return "Unhealthy for Sensitive Groups";
-    if (aqi <= 200) return "Unhealthy";
-    if (aqi <= 300) return "Very Unhealthy";
-    return "Hazardous";
+// Function to handle events for each state feature
+function onEachFeature(feature, layer) {
+    layer.on({
+        mouseover: highlightFeature,
+        mouseout: resetHighlight,
+    });
+}
+
+// Event handler for mouseover
+function highlightFeature(e) {
+    const layer = e.target;
+    layer.setStyle({
+        weight: 3,
+        color: '#333',
+        fillOpacity: 0.9
+    });
+    layer.bringToFront();
+    updateInfoTooltip(layer.feature.properties);
+}
+
+// Event handler for mouseout
+function resetHighlight(e) {
+    geojsonLayer.resetStyle(e.target);
+    infoTooltip.update(); // Clear the tooltip
+}
+
+// --- INFO TOOLTIP CONTROL ---
+function createInfoTooltip() {
+    infoTooltip = L.control(); // Create a new Leaflet control
+
+    infoTooltip.onAdd = function(map) {
+        this._div = L.DomUtil.create('div', 'info-tooltip'); // Create a div with a class "info"
+        this.update();
+        return this._div;
+    };
+
+    // Method that we will use to update the control based on feature properties passed
+    infoTooltip.update = function(props) {
+        const data = props && props.demographics ? props.demographics : null;
+        let content = '<h4>India Demographics</h4>';
+        if (data) {
+            content += `<b>${data.name}</b><br/>`;
+            content += `Cost of Living: ${data.costOfLiving}<br/>`;
+            content += `Safety: ${data.safety}<br/>`;
+            // We'll add pollution dynamically later
+        } else {
+            content += 'Hover over a state';
+        }
+        this._div.innerHTML = content;
+    };
+
+    infoTooltip.addTo(map);
+}
+
+function updateInfoTooltip(props) {
+    infoTooltip.update(props);
 }
 
 
-// Run the main function when the script loads.
-loadStateData();
+// --- UI EVENT LISTENERS ---
+function setupUI() {
+    const buttons = document.querySelectorAll('.controls button');
+    buttons.forEach(button => {
+        button.addEventListener('click', () => {
+            // Update active button style
+            buttons.forEach(btn => btn.classList.remove('active'));
+            button.classList.add('active');
+            
+            // Update the current view
+            if(button.id === 'costBtn') currentView = 'costOfLiving';
+            if(button.id === 'safetyBtn') currentView = 'safety';
+            if(button.id === 'pollutionBtn') currentView = 'pollution'; // You would need to add pollution data
 
+            // Redraw the map with the new styles
+            geojsonLayer.setStyle(styleLayer);
+        });
+    });
+}
+
+// Initialize the UI controls
+setupUI();
