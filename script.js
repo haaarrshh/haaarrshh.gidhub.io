@@ -76,3 +76,4 @@ function getAqiQuality(aqi) {
 
 // Run the main function when the script loads.
 loadStateData();
+
